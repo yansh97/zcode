@@ -1,0 +1,20 @@
+{
+  "name": "yansh97-zcode",
+  "description": "Personal ZCode plugins by yansh97.",
+  "plugins": [
+    {
+      "name": "deepseek-search",
+      "source": "./plugins/deepseek-search",
+      "version": "0.1.0",
+      "description": "Web search and page fetching via the DeepSeek Search/Fetch API.",
+      "displayName": "DeepSeek Search",
+      "displayName_i18n": {
+        "zh-CN": "DeepSeek 搜索"
+      },
+      "description_i18n": {
+        "zh-CN": "通过 DeepSeek Search/Fetch 接口进行联网搜索与网页抓取。"
+      },
+      "category": "utilities"
+    }
+  ]
+}

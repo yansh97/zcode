@@ -1,0 +1,36 @@
+{
+  "name": "deepseek-search",
+  "version": "0.1.0",
+  "description": "Web search and page fetching via the DeepSeek Search/Fetch API.",
+  "description_i18n": {
+    "zh-CN": "通过 DeepSeek Search/Fetch 接口进行联网搜索与网页抓取。"
+  },
+  "author": {
+    "name": "yansh97"
+  },
+  "license": "MIT",
+  "skills": "skills",
+  "mcpServers": {
+    "deepseek-search": {
+      "type": "stdio",
+      "command": "/usr/bin/python3",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/mcp/server.py"
+      ],
+      "env": {
+        "DEEPSEEK_API_KEY": "${user_config.api_key}"
+      },
+      "timeoutMs": 60000
+    }
+  },
+  "userConfig": {
+    "api_key": {
+      "type": "string",
+      "title": "DeepSeek API Key",
+      "description": "DeepSeek API Key，在 platform.deepseek.com 创建。",
+      "default": "",
+      "sensitive": true,
+      "required": true
+    }
+  }
+}
