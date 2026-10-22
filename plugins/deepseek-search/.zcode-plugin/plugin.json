@@ -1,6 +1,6 @@
 {
   "name": "deepseek-search",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Web search and page fetching via the DeepSeek Search/Fetch API.",
   "description_i18n": {
     "zh-CN": "通过 DeepSeek Search/Fetch 接口进行联网搜索与网页抓取。"

@@ -15,7 +15,7 @@ import urllib.error
 import urllib.request
 
 API_BASE = os.environ.get("DEEPSEEK_API_BASE", "https://api.deepseek.com").rstrip("/")
-NAME, VERSION, PROTOCOL = "deepseek-search", "0.1.0", "2024-11-05"
+NAME, VERSION, PROTOCOL = "deepseek-search", "0.2.0", "2024-11-05"
 TIMEOUT = 45
 
 TOOLS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools.json")

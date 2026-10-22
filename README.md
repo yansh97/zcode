@@ -16,7 +16,7 @@ https://github.com/yansh97/zcode
 
 | 插件 | 版本 | 说明 |
 |---|---|---|
-| [deepseek-search](plugins/deepseek-search/README.md) | 0.1.0 | DeepSeek 网页搜索与抓取（MCP 工具） |
+| [deepseek-search](plugins/deepseek-search/README.md) | 0.2.0 | DeepSeek 网页搜索与抓取（MCP 工具） |
 
 ## 仓库结构
 

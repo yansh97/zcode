@@ -5,7 +5,7 @@
     {
       "name": "deepseek-search",
       "source": "./plugins/deepseek-search",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "description": "Web search and page fetching via the DeepSeek Search/Fetch API.",
       "displayName": "DeepSeek Search",
       "displayName_i18n": {
