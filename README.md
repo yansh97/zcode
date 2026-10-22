@@ -16,7 +16,7 @@ https://github.com/yansh97/zcode
 
 | 插件 | 版本 | 说明 |
 |---|---|---|
-| [deepseek-search](plugins/deepseek-search/README.md) | 0.1.0 | DeepSeek 网页搜索与抓取（MCP 工具 + 使用技能） |
+| [deepseek-search](plugins/deepseek-search/README.md) | 0.1.0 | DeepSeek 网页搜索与抓取（MCP 工具） |
 
 ## 仓库结构
 
@@ -44,14 +44,14 @@ https://github.com/yansh97/zcode
 
 ## 约定
 
-- **能写在工具描述里的就不单开 skill。** 工具描述随 MCP 连接常驻，模型调用前就能看到；只有需要压缩常驻开销的大段内容才值得拆成按需加载的 skill。
-- **密钥一律走 `userConfig` + `sensitive: true`，只能注入 `env` 或 `headers`。** 绝不写进仓库、`args` 或 `url`。
-- **版本号在 `plugin.json` 与 `marketplace.json` 两处保持一致**，否则更新行为会不一致。
-- 依赖 macOS 自带的 `/usr/bin/python3`（Xcode Command Line Tools 提供），不引入需要 pip 安装的运行时。
+- **优先把用法写进工具描述。** 工具描述随 MCP 连接常驻，模型调用前就能看到；只有需要压缩常驻开销的大段内容才值得拆成按需加载的 skill。
+- **密钥走 `userConfig` + `sensitive: true`，注入 `env` 或 `headers`。** 严禁写进仓库、`args` 或 `url`。
+- **版本号在 `plugin.json` 与 `marketplace.json` 两处保持一致**，更新行为才一致。
+- 运行时使用 macOS 自带的 `/usr/bin/python3`（Xcode Command Line Tools 提供）及其标准库。
 
 ## 开发与自测
 
-每个插件的 README 里有独立的本地自测命令，可以不经过 ZCode 直接验证。改动后递增版本号，不要依赖重新生成脚手架覆盖已有文件。
+每个插件的 README 里有独立的本地自测命令，可以不经过 ZCode 直接验证。改动后递增版本号，并在脚手架生成的文件上直接编辑。
 
 `pyproject.toml` 只用于静态检查：`requires-python` 与 `[tool.ruff] target-version` 都锁定 3.9，因为插件跑在系统自带的 Python 上。
 

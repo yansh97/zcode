@@ -6,7 +6,7 @@ DeepSeek 网页搜索与抓取，提供 `web_search` / `web_fetch` 两个 MCP �
 
 ## 要求
 
-macOS 12+，以及 `/usr/bin/python3`（由 Xcode Command Line Tools 提供，未装则运行 `xcode-select --install`）。除此之外只需系统 Python 标准库，不需要 pip 安装任何依赖。
+macOS 12+，以及 `/usr/bin/python3`（由 Xcode Command Line Tools 提供，未装则运行 `xcode-select --install`）。运行时使用系统 Python 标准库。
 
 ## 安装
 
