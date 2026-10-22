@@ -9,7 +9,6 @@
     "name": "yansh97"
   },
   "license": "MIT",
-  "skills": "skills",
   "mcpServers": {
     "deepseek-search": {
       "type": "stdio",

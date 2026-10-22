@@ -2,7 +2,7 @@
 
 DeepSeek 网页搜索与抓取，提供 `web_search` / `web_fetch` 两个 MCP 工具。
 
-工具名、描述和参数 schema 定义在 `mcp/tools.json`，服务启动时读取；`mcp/server.py` 只负责协议与调用逻辑。
+工具名、描述、参数 schema 和结果解读规则都在 `mcp/tools.json`，服务启动时读取；`mcp/server.py` 只负责协议与调用逻辑，参数原样转发给 DeepSeek API。
 
 ## 要求
 

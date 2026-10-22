@@ -2,7 +2,7 @@
   "tools": [
     {
       "name": "web_search",
-      "description": "用 DeepSeek 搜索网页。需要实时信息、核实事实、查最新版本或新闻时使用。\n\n返回：API 原始 JSON，含 results 数组。每条字段为 title、url、snippet（约 100-200 字符）、summary（约 600-800 字符）、rerank_score（0-3，≥1.5 为优质）、authority（0-4，≥3 为高权威，-1 未知）、date（RFC 3339 UTC，可能为 null）、content（仅 need_content 为 true 时非空）、site_name、site_icon。\n\nquery 完整语法：\n- site:example.com 限定站点，多个可用 OR 组合，如 site:github.com OR site:huggingface.co\n- -site:example.com 排除站点\n- -词 排除含该词的页面\n- \"精确短语\" 要求精确匹配，-\"精确短语\" 排除\n- lang:zh 限定语言，可逗号分隔多个，如 lang:zh,en\n- after:2025-01-01 限定发布晚于该日期，before:2026-06-01 限定早于\n- 多个词或短语用空格分隔\n\n参数范围：query 1-128 字符；count 1-50，默认 10；ori_question 1-128 字符。请自行遵守，超出会由 API 拒绝。\n\n上下文：summary 约 600-800 字符，乘 count 即主要开销；need_content 会为每条再附完整正文，代价高，通常改用 web_fetch 取单页更省。\n\n错误码（isError 时 text 即错误码）：\ninvalid_request 参数不合法或超范围，修正后重试；\nauth_failed 让用户更新密钥，勿重试；insufficient_balance 让用户充值，勿重试；\nrate_limited 等待后重试；network_error 可重试一次；service_error 稍后重试一次；\ninternal_error 插件故障，勿重试",
+      "description": "用 DeepSeek 搜索网页。需要实时信息、核实事实、查最新版本或新闻时使用。\n\n返回：API 原始 JSON，含 results 数组。每条字段：\n- title、url、site_name、site_icon\n- snippet 约 100-200 字符，summary 约 600-800 字符\n- rerank_score 0-3，≥1.5 为优质，<1 通常不相关，优先取高分\n- authority 0-4，≥3 为高权威，-1 表示未知\n- date 为 RFC 3339 UTC，可能为 null；为 null 时不要把内容当\"最新\"\n- content 仅 need_content 为 true 时非空\n\nquery 完整语法：\n- site:example.com 限定站点，多个可用 OR 组合，如 site:github.com OR site:huggingface.co\n- -site:example.com 排除站点\n- -词 排除含该词的页面\n- \"精确短语\" 要求精确匹配，-\"精确短语\" 排除\n- lang:zh 限定语言，可逗号分隔多个，如 lang:zh,en\n- after:2025-01-01 限定发布晚于该日期，before:2026-06-01 限定早于\n- 多个词或短语用空格分隔\n\n参数范围：query 1-128 字符；count 1-50，默认 10；ori_question 1-128 字符。请自行遵守，超出会由 API 拒绝。\n\n上下文：summary 约 600-800 字符，乘 count 即主要开销；need_content 会为每条再附完整正文，代价高，通常改用 web_fetch 取单页更省。\n\n使用建议：\n- 优先读 summary，不要无端开 need_content\n- 同一结论在多个不相关站点出现才算交叉印证，转载同一稿不算\n- 关键结论需附来源 URL；没查到就说没查到，不要用记忆填充冒充搜索结果\n- 结果互相矛盾时指出分歧，不要挑一个当定论\n\n错误码（isError 时 text 即错误码）：\ninvalid_request 参数不合法或超范围，修正后重试；\nauth_failed 让用户更新密钥，勿重试；insufficient_balance 让用户充值，勿重试；\nrate_limited 等待后重试；network_error 可重试一次；service_error 稍后重试一次；\ninternal_error 插件故障，勿重试",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -30,7 +30,7 @@
     },
     {
       "name": "web_fetch",
-      "description": "用 DeepSeek 抓取单个网页。需要某条结果的全文时使用。\n\n返回：API 原始 JSON，含 title（无标题时为空字符串）与 content（Markdown 正文，可能很长，未截断）。\n\n参数范围：url 为 http/https 绝对地址，最长 8192 字符，须含主机名且不能带用户名密码。请自行遵守，超出会由 API 拒绝。\n\n错误码（isError 时 text 即错误码）：\ninvalid_request URL 不合法，修正后重试；empty_content 该页无可提取正文，换来源；\nauth_failed 让用户更新密钥，勿重试；insufficient_balance 让用户充值，勿重试；\nrate_limited 等待后重试；network_error 可重试一次；service_error 稍后重试一次；\ninternal_error 插件故障，勿重试",
+      "description": "用 DeepSeek 抓取单个网页。需要某条结果的全文时使用。\n\n返回：API 原始 JSON，含 title（无标题时为空字符串）与 content（Markdown 正文，可能很长，未截断）。\n\n参数范围：url 为 http/https 绝对地址，最长 8192 字符，须含主机名且不能带用户名密码。请自行遵守，超出会由 API 拒绝。\n\n使用建议：\n- 关键结论需附来源 URL\n- 页面无可用正文（登录墙、纯脚本渲染）时直接说明并换来源，不要用记忆填充\n- 多页内容矛盾时指出分歧，不要挑一个当定论\n\n错误码（isError 时 text 即错误码）：\ninvalid_request URL 不合法，修正后重试；empty_content 该页无可提取正文，换来源；\nauth_failed 让用户更新密钥，勿重试；insufficient_balance 让用户充值，勿重试；\nrate_limited 等待后重试；network_error 可重试一次；service_error 稍后重试一次；\ninternal_error 插件故障，勿重试",
       "inputSchema": {
         "type": "object",
         "properties": {
